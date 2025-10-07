@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Анкета для устройства</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+    body {
+        font-family: 'Inter', sans-serif;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://klike.net/uploads/posts/2019-12/1575280124_16.jpg') no-repeat center center;
+        background-size: cover;
+        z-index: -1;
+        animation: zoomBackground 30s ease-in-out infinite alternate;
+    }
+
+    @keyframes zoomBackground {
+        0% { transform: scale(1); }
+        100% { transform: scale(1.1); }
+    }
+
+    .container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        backdrop-filter: blur(10px);
+        position: relative;
+    }
+
+    h1 {
+        margin-bottom: 25px;
+        font-size: 24px;
+        color: #333;
+        font-weight: 600;
+    }
+
+    .input-group {
+        position: relative;
+        margin: 12px 0;
+    }
+
+    .input-group i {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #888;
+    }
+
+    input {
+        width: 100%;
+        padding: 14px 18px 14px 40px;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+    }
+
+    input:focus {
+        border-color: #007BFF;
+        box-shadow: 0 0 8px rgba(0,123,255,0.3);
+        outline: none;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px;
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: 600;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    #submitBtn {
+        background: #007BFF;
+        color: #fff;
+    }
+
+    #submitBtn:hover {
+        background: #0056b3;
+        transform: scale(1.03);
+    }
+
+    #managerBtn {
+        background: #28a745;
+        color: #fff;
+        margin-top: 15px;
+    }
+
+    #managerBtn:hover {
+        background: #1e7e34;
+        transform: scale(1.03);
+    }
+
+    .success {
+        margin-top: 15px;
+        font-weight: 600;
+        font-size: 16px;
+    }
+
+    .success.green { color: #28a745; }
+    .success.red { color: #dc3545; }
+
+    .footer {
+        margin-top: 30px;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .footer span {
+        display: block;
+        margin: 4px 0;
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h1>Заполните анкету для устройства</h1>
+    <form id="applicationForm">
+        <div class="input-group">
+            <i class="fas fa-briefcase"></i>
+            <input type="text" name="vacancy" placeholder="Вакансия для заполнения" required>
+        </div>
+        <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input type="text" name="firstName" placeholder="Имя" required>
+        </div>
+        <div class="input-group">
+            <i class="fas fa-user"></i>
+            <input type="text" name="lastName" placeholder="Фамилия" required>
+        </div>
+        <div class="input-group">
+            <i class="fas fa-phone"></i>
+            <input type="tel" name="phone" placeholder="Телефон" required>
+        </div>
+        <div class="input-group">
+            <i class="fas fa-city"></i>
+            <input type="text" name="city" placeholder="Город" required>
+        </div>
+        <div class="input-group">
+            <i class="fab fa-telegram"></i>
+            <input type="text" name="telegram" placeholder="Telegram @username (необязательно)">
+        </div>
+        <button type="submit" id="submitBtn">Отправить анкету</button>
+    </form>
+    <a href="https://t.me/vip_cash55" target="_blank"><button id="managerBtn">Связь с менеджером</button></a>
+    <div class="success" id="successMsg"></div>
+    <div class="footer">
+        <span>© 2025 Наш проект. Все права защищены.</span>
+        <span>Доступно с любых устройств.</span>
+    </div>
+</div>
+
+<script>
+const form = document.getElementById('applicationForm');
+const successMsg = document.getElementById('successMsg');
+
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const data = {
+        vacancy: form.vacancy.value,
+        firstName: form.firstName.value,
+        lastName: form.lastName.value,
+        phone: form.phone.value,
+        city: form.city.value,
+        telegram: form.telegram.value || 'не указан'
+    };
+
+    const botToken = '8285301429:AAGGCtONEaTxj7r4tjhVxepos1lMNC3NnzE';
+    const chatId = '6284580008';
+    const message = `Новая анкета:\nВакансия: ${data.vacancy}\nИмя: ${data.firstName}\nФамилия: ${data.lastName}\nТелефон: ${data.phone}\nГород: ${data.city}\nTelegram: ${data.telegram}`;
+
+    try {
+        const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                chat_id: chatId,
+                text: message
+            })
+        });
+
+        if (response.ok) {
+            successMsg.textContent = "Анкета успешно отправлена!";
+            successMsg.className = "success green";
+            form.reset();
+        } else {
+            successMsg.textContent = "Ошибка отправки. Попробуйте позже.";
+            successMsg.className = "success red";
+        }
+    } catch (error) {
+        successMsg.textContent = "Ошибка соединения с Telegram.";
+        successMsg.className = "success red";
+    }
+});
+</script>
+</body>
+</html>
