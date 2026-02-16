@@ -120,8 +120,10 @@
 </style>
 </head>
 <body>
+
 <div class="container">
     <h1>Заполните анкету для устройства</h1>
+
     <form id="applicationForm">
         <div class="input-group">
             <i class="fas fa-briefcase"></i>
@@ -149,8 +151,13 @@
         </div>
         <button type="submit" id="submitBtn">Отправить анкету</button>
     </form>
-    <a href="https://t.me/Milana_Manager55" target="_blank"><button id="managerBtn">Связь с менеджером</button></a>
+
+    <a href="https://t.me/vip_cash55" target="_blank">
+        <button id="managerBtn">Связь с менеджером</button>
+    </a>
+
     <div class="success" id="successMsg"></div>
+
     <div class="footer">
         <span>© 2025 Наш проект. Все права защищены.</span>
         <span>Доступно с любых устройств.</span>
@@ -161,7 +168,7 @@
 const form = document.getElementById('applicationForm');
 const successMsg = document.getElementById('successMsg');
 
-form.addEventListener('submit', async (e) => {
+form.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     const formData = new FormData(form);
@@ -172,23 +179,28 @@ form.addEventListener('submit', async (e) => {
             body: formData
         });
 
-        const result = await response.json();
+        let result;
+        try {
+            result = await response.json();
+        } catch {
+            result = { success: false };
+        }
 
         if (response.ok && result.success) {
-            successMsg.textContent = "Анкета успешно отправлена! Скоро с вами свяжутся.";
-            successMsg.className = "success green";
+            successMsg.textContent = 'Анкета успешно отправлена! Скоро с вами свяжутся.';
+            successMsg.className = 'success green';
             form.reset();
         } else {
-            successMsg.textContent = "Ошибка отправки. Попробуйте позже или свяжитесь с менеджером.";
-            successMsg.className = "success red";
+            successMsg.textContent = 'Ошибка отправки. Попробуйте позже или свяжитесь с менеджером.';
+            successMsg.className = 'success red';
         }
-    } catch (error) {
-        successMsg.textContent = "Проблема с соединением. Подождите немного и попробуйте снова.";
-        successMsg.className = "success red";
-        console.error('Ошибка:', error);
+    } catch (err) {
+        successMsg.textContent = 'Проблема с соединением. Подождите немного и попробуйте снова.';
+        successMsg.className = 'success red';
+        console.error('Ошибка:', err);
     }
 });
 </script>
+
 </body>
 </html>
-
